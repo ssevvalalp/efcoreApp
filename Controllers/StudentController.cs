@@ -90,5 +90,39 @@ namespace efcoreApp.Controllers
 
             return View(model);
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if(id == null)
+            {
+                return NotFound();
+            }
+
+            var student = await _context.Students.FindAsync(id);
+
+            if(student == null)
+            {
+                return NotFound();
+            }
+
+            return View(student);
+        }
+
+
+        [HttpPost]
+
+        public async Task<IActionResult> Delete([FromForm]int id) 
+        {
+            var student = await _context.Students.FindAsync(id);
+            if (student == null)
+            {
+                return NotFound();
+            }
+            _context.Students.Remove(student);
+            await _context.SaveChangesAsync(); 
+            return RedirectToAction("Index");
+        }
     }
 }

@@ -31,7 +31,7 @@
                 <td>@Html.DisplayFor(modelitem => item.StudentLastName)</td>
                 <td>
                     <a asp-controller="Student" asp-action="Edit" asp-route-id="@item.StudentId" class="btn btn-sm btn-primary">Edit</a>
-                    <a href="" class="btn btn-sm btn-danger">Delete</a>
+                    <a asp-controller="Student" asp-action="Delete" asp-route-id="@item.StudentId" class="btn btn-sm btn-danger">Delete</a>
                 </td>
             </tr>
         }
