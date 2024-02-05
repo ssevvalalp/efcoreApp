@@ -30,7 +30,7 @@
                 <td>@Html.DisplayFor(modelitem => item.StudentName)</td>
                 <td>@Html.DisplayFor(modelitem => item.StudentLastName)</td>
                 <td>
-                    <a href="" class="btn btn-sm btn-primary">Detail</a>
+                    <a asp-controller="Student" asp-action="Edit" asp-route-id="@item.StudentId" class="btn btn-sm btn-primary">Edit</a>
                     <a href="" class="btn btn-sm btn-danger">Delete</a>
                 </td>
             </tr>

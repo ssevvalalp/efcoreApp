@@ -36,5 +36,23 @@ namespace efcoreApp.Controllers
             return RedirectToAction("Index");
             
         }
+
+        public async Task<IActionResult> Edit(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+           // var std = await _context.Students.FirstOrDefaultAsync(std => std.StudentId == id);
+           var std = await _context.Students.FindAsync(id);
+
+            if (std == null)
+            {
+                return NotFound();
+            }
+
+            return View(std);
+        }
     }
 }
