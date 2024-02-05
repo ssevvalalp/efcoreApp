@@ -37,6 +37,7 @@ namespace efcoreApp.Controllers
             
         }
 
+        [HttpGet]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -53,6 +54,41 @@ namespace efcoreApp.Controllers
             }
 
             return View(std);
+        }
+
+        [HttpPost] 
+        [ValidateAntiForgeryToken] // get post token bilgisi kontrolü
+        public async Task <IActionResult> Edit(int id, Student model) //route,form
+        {
+            if(id != model.StudentId)
+            {
+                return NotFound();
+            }
+
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _context.Update(model); //güncellenecek olarak işaretle
+                    await _context.SaveChangesAsync(); //güncelleme yapılıp veri tabanına aktarılılır
+                }
+                catch(DbUpdateConcurrencyException)
+                {
+                    if (!_context.Students.Any(s => s.StudentId == model.StudentId))
+                    {
+                        return NotFound();
+                    }
+                    else
+                    {
+                        throw;
+                    }
+
+                }
+               return RedirectToAction("Index");
+
+            }
+
+            return View(model);
         }
     }
 }
